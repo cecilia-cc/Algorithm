@@ -26,19 +26,52 @@ def QuickSort(nums):
     return QuickSort(less) + [pivot] + QuickSort(greater)
 
 ##############################
+def QuickSort2(nums):
+    return quick_sort(nums,0,len(nums)-1)
 
+def quick_sort(nums,left,right):
+    if left >= right:
+        return
+    low = left
+    high = right
+    key = nums[low]
+    while left < right:
+        while left < right and nums[right] > key:
+            right -= 1
+        nums[left] = nums[right]
+        while left < right and nums[left] <= key:
+            left += 1
+        nums[right] = nums[left]
+    nums[right] = key
+    quick_sort(nums, low, left - 1)
+    quick_sort(nums, left+1, high)
+
+
+
+###########################
 def QuickSortInplace(nums):
     return q_sort(nums, 0, len(nums) - 1)
 
 def q_sort(nums, left, right):
     if left < right:
-        pivot = Partition(nums, left, right)
+        #pivot = Partition1(nums, left, right)
+        pivot = Partition2(nums,left,right)
 
         q_sort(nums, left, pivot - 1)
         q_sort(nums, pivot + 1, right)
     return nums
 
-def Partition(nums, left, right):
+def Partition1(nums, left, right):
+    key = nums[right]
+    i = left - 1
+    for j in range(left,right):
+        if nums[j] <= key:
+            i += 1
+            nums[i], nums[j] = nums[j], nums[i]
+    nums[i+1],nums[right] = nums[right], nums[i+1]
+    return i+1
+
+def Partition2(nums, left, right):
     pivot = nums[left]
     while left < right:
         while left < right and nums[right] >= pivot:
@@ -56,4 +89,10 @@ input = [1, 4, 2, 3.6, -1, 0, 25, -34, 8, 9, 1, 0]
 print("quick sort")
 print(input)
 print(QuickSort(input))
+
+input = [1, 4, 2, 3.6, -1, 0, 25, -34, 8, 9, 1, 0]
+QuickSort2(input)
+print(input)
+
+input = [1, 4, 2, 3.6, -1, 0, 25, -34, 8, 9, 1, 0]
 print(QuickSortInplace(input))
