@@ -1,0 +1,3 @@
+[submodule "Predicting-Customer-Churn"]
+	path = Predicting-Customer-Churn
+	url = https://github.com/constantinembufung/Predicting-Customer-Churn.git
